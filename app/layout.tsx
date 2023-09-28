@@ -1,9 +1,10 @@
-"use client";
+// "use client";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import NavBar from "./NavBar";
+import AuthProvider from "./auth/Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,78 +18,80 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [currentTheme, setCurrentTheme] = useState<string>("business"); // Default theme is 'business'
+  // const [currentTheme, setCurrentTheme] = useState<string>("business"); // Default theme is 'business'
 
-  // Function to toggle theme
-  const toggleTheme = (theme: string) => {
-    setCurrentTheme(theme);
-    // Save the selected theme to local storage
-    localStorage.setItem("theme", theme);
-  };
+  // // Function to toggle theme
+  // const toggleTheme = (theme: string) => {
+  //   setCurrentTheme(theme);
+  //   // Save the selected theme to local storage
+  //   localStorage.setItem("theme", theme);
+  // };
 
-  // Function to reset the theme to its default value
-  const resetTheme = () => {
-    setCurrentTheme("business"); // Set it to your default theme value
-    // Remove the theme from local storage to reset it
-    localStorage.removeItem("theme");
-  };
+  // // Function to reset the theme to its default value
+  // const resetTheme = () => {
+  //   setCurrentTheme("business"); // Set it to your default theme value
+  //   // Remove the theme from local storage to reset it
+  //   localStorage.removeItem("theme");
+  // };
 
-  // Load the theme from local storage when the component mounts
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setCurrentTheme(savedTheme);
-    }
-  }, []);
+  // // Load the theme from local storage when the component mounts
+  // useEffect(() => {
+  //   const savedTheme = localStorage.getItem("theme");
+  //   if (savedTheme) {
+  //     setCurrentTheme(savedTheme);
+  //   }
+  // }, []);
   return (
-    <html lang="en" data-theme={currentTheme}>
-      <body className={inter.className}>
-        <NavBar />
-        <button
-          className="btn"
-          onClick={() => document.getElementById("my_modal_2").showModal()}
-        >
-          open modal
-        </button>
+    <html lang="en" data-theme={"winter"}>
+      <AuthProvider>
+        <body className={inter.className}>
+          <NavBar />
+          {/* <button
+            className="btn"
+            onClick={() => document.getElementById("my_modal_2").showModal()}
+          >
+            open modal
+          </button> */}
 
-        <main>{children}</main>
+          <main>{children}</main>
 
-        <dialog id="my_modal_2" className="modal">
-          <div className="modal-box">
-            <button
-              className="btn btn-active btn-primary mb-3"
-              onClick={() => toggleTheme("cyberpunk")}
-            >
-              Switch to cyberpunk Theme
-            </button>
-            <br />
-            <button
-              className="btn btn-active btn-primary mb-3"
-              onClick={() => toggleTheme("dark")}
-            >
-              Switch to Dark Theme
-            </button>
-            <br />
-            <button
-              className="btn btn-active btn-primary mb-3"
-              onClick={() => toggleTheme("light")}
-            >
-              Switch to Light Theme
-            </button>
-            <br />
-            <button
-              className="btn btn-active btn-primary mb-3"
-              onClick={resetTheme}
-            >
-              Reset Theme
-            </button>
-            <p className="py-4">Press ESC key or click outside to close</p>
-          </div>
-          <form method="dialog" className="modal-backdrop">
-            <button>close</button>
-          </form>
-        </dialog>
-      </body>
+          {/* <dialog id="my_modal_2" className="modal">
+            <div className="modal-box">
+              <button
+                className="btn btn-active btn-primary mb-3"
+                onClick={() => toggleTheme("cyberpunk")}
+              >
+                Switch to cyberpunk Theme
+              </button>
+              <br />
+              <button
+                className="btn btn-active btn-primary mb-3"
+                onClick={() => toggleTheme("dark")}
+              >
+                Switch to Dark Theme
+              </button>
+              <br />
+              <button
+                className="btn btn-active btn-primary mb-3"
+                onClick={() => toggleTheme("light")}
+              >
+                Switch to Light Theme
+              </button>
+              <br />
+              <button
+                className="btn btn-active btn-primary mb-3"
+                onClick={resetTheme}
+              >
+                Reset Theme
+              </button>
+              <p className="py-4">Press ESC key or click outside to close</p>
+            </div>
+            <form method="dialog" className="modal-backdrop">
+              <button>close</button>
+            </form>
+          </dialog> */}
+        </body>
+      </AuthProvider>
     </html>
   );
 }
