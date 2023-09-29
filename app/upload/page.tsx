@@ -29,7 +29,7 @@ export default function UploadPage() {
           if (result.event !== "success") return;
           const info = result.info as CloudinaryResult; // Define for type recolonization
           setPublicId(info.public_id);
-          // console.log(result);
+          console.log(result);
         }}
       >
         {({ open }) => (
